@@ -6,6 +6,8 @@ Static website scaffold for publishing a personal Robocon history on GitHub Page
 
 - A responsive single-page site in plain HTML, CSS, and JavaScript
 - Sample Robocon story content in one editable file: `data/site-data.js`
+- A browser-side editor for text, awards, and image uploads
+- Public sections for `Home`, `Competitions`, `Reward`, `History`, `Projects`, `Experiments`, `Support`, and `Talarhal`
 - AI-DLC-style project notes in `docs/aidlc/`
 - GitHub Pages deployment workflow in `.github/workflows/deploy.yml`
 
@@ -19,13 +21,35 @@ This repo follows the shape of AWS AI-DLC at a practical level:
 
 ## Edit your content
 
-Update `data/site-data.js` to replace the sample values with your real:
+You have two ways to edit content:
+
+- Edit `data/site-data.js` directly in the repo
+- Use the in-browser `Edit Site` drawer for local content editing
+
+Replace the sample values with your real:
 
 - start year
-- timeline entries
-- robot or subsystem names
-- competition lessons
-- public footer note
+- competitions
+- rewards and results
+- history timeline
+- projects and experiments
+- support organizations
+- talarhal messages
+
+## Browser editor
+
+The page now includes an `Edit Site` button.
+
+- Text edits are stored in your browser automatically
+- Uploaded images are compressed and stored locally in the browser
+- `Export JSON` downloads your edited content
+- `Import JSON` restores a previous export
+
+Important:
+
+- Browser edits do not automatically commit back into the Git repository
+- Large or many images can exceed browser storage limits
+- For permanent publishing, keep important images in the repo or another stable URL and then push the code
 
 ## Local preview
 

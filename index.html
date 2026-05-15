@@ -19,111 +19,172 @@
   <body>
     <header class="topbar">
       <a class="brand" href="#top">ROBOCON ARCHIVE</a>
-      <nav class="topnav" aria-label="Primary">
-        <a href="#timeline">Timeline</a>
-        <a href="#turning-points">Turning Points</a>
-        <a href="#builds">Builds</a>
-        <a href="#lessons">Lessons</a>
-        <a href="#publish">Publish</a>
-      </nav>
+      <div class="topbar-actions">
+        <nav class="topnav" aria-label="Primary">
+          <a href="#top">Home</a>
+          <a href="#competitions">Competitions</a>
+          <a href="#reward">Reward</a>
+          <a href="#history">History</a>
+          <a href="#projects">Projects</a>
+          <a href="#experiments">Experiments</a>
+          <a href="#support">Support</a>
+          <a href="#talarhal">Talarhal</a>
+        </nav>
+        <button
+          class="editor-toggle"
+          id="editor-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="editor-drawer"
+        >
+          Edit Site
+        </button>
+      </div>
     </header>
 
     <main id="top">
       <section class="hero reveal">
         <div class="hero-copy">
           <p class="eyebrow" id="hero-tag"></p>
+          <p class="hero-persona" id="hero-persona"></p>
           <h1 id="hero-title"></h1>
           <p class="hero-subtitle" id="hero-subtitle"></p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#timeline">Read the timeline</a>
-            <a class="button button-secondary" href="#publish">See the publish plan</a>
+            <a class="button button-primary" href="#competitions">See competitions</a>
+            <a class="button button-secondary" href="#projects">View projects</a>
           </div>
         </div>
 
         <aside class="hero-panel">
-          <div class="panel-label">Story Metrics</div>
-          <div class="stats-grid" id="stats-grid"></div>
+          <div class="hero-panel-top">
+            <div class="panel-label">Home Visual</div>
+            <div class="hero-media" id="hero-media"></div>
+          </div>
+          <div>
+            <div class="panel-label">Quick Stats</div>
+            <div class="stats-grid" id="stats-grid"></div>
+          </div>
         </aside>
       </section>
 
-      <section class="phase-rail reveal" aria-label="Narrative phases">
-        <div class="section-heading compact">
-          <p class="section-kicker">Structure</p>
-          <h2>Three phases for the story</h2>
+      <section class="competitions reveal" id="competitions">
+        <div class="section-heading">
+          <p class="section-kicker">Competitions</p>
+          <h2>Seasons, venues, themes, and results</h2>
+          <p>
+            This section should track the competitions that mattered, from local qualifiers
+            to major Robocon stages.
+          </p>
         </div>
-        <div class="phase-grid" id="phase-grid"></div>
+        <div class="competition-grid" id="competition-grid"></div>
       </section>
 
-      <section class="timeline-section reveal" id="timeline">
+      <section class="reward reveal" id="reward">
         <div class="section-heading">
-          <p class="section-kicker">Chronology</p>
+          <p class="section-kicker">Reward</p>
+          <h2>Awards, placements, and recognition</h2>
+          <p>
+            Use this section for official awards, special mentions, finalist placements,
+            engineering prizes, or certificates.
+          </p>
+        </div>
+        <div class="reward-grid" id="reward-grid"></div>
+      </section>
+
+      <section class="history reveal" id="history">
+        <div class="section-heading">
+          <p class="section-kicker">History</p>
           <h2>The years that changed the way you build</h2>
           <p>
-            Use this as the backbone of the site. Replace the sample years with your
-            actual seasons, regional matches, robot names, or breakthrough moments.
+            Keep the story chronological. This is the section that shows how the work
+            evolved over time.
           </p>
         </div>
         <div class="timeline-shell">
           <div class="timeline-line" aria-hidden="true">
             <span id="timeline-fill"></span>
           </div>
-          <div class="timeline-list" id="timeline-list"></div>
+          <div class="timeline-list" id="history-list"></div>
         </div>
       </section>
 
-      <section class="turning-points reveal" id="turning-points">
+      <section class="projects reveal" id="projects">
         <div class="section-heading">
-          <p class="section-kicker">Turning Points</p>
-          <h2>What Robocon actually taught</h2>
+          <p class="section-kicker">Projects</p>
+          <h2>Robots, mechanisms, and major technical work</h2>
         </div>
-        <div class="card-grid" id="turning-points-grid"></div>
+        <div class="project-grid" id="project-grid"></div>
       </section>
 
-      <section class="builds reveal" id="builds">
+      <section class="experiments reveal" id="experiments">
         <div class="section-heading">
-          <p class="section-kicker">Featured Builds</p>
-          <h2>Machines, subsystems, and rebuilds worth remembering</h2>
-        </div>
-        <div class="build-grid" id="build-grid"></div>
-      </section>
-
-      <section class="lessons reveal" id="lessons">
-        <div class="section-heading">
-          <p class="section-kicker">Carry Forward</p>
-          <h2>Principles that survived past the competition floor</h2>
-        </div>
-        <div class="lesson-list" id="lesson-list"></div>
-      </section>
-
-      <section class="publish reveal" id="publish">
-        <div class="publish-copy">
-          <p class="section-kicker">Operations</p>
-          <h2>Ready for your GitHub repository and custom domain</h2>
+          <p class="section-kicker">Experiments / Turshlaga</p>
+          <h2>Trials, failed ideas, and useful tests</h2>
           <p>
-            This version is intentionally static. Update one data file, push to GitHub,
-            and the Pages workflow can publish the site without a framework or backend.
+            Experiments are part of the history too. They show how the final robot was
+            shaped by evidence, not just guesses.
           </p>
-          <ul class="publish-steps">
-            <li>Edit <code>data/site-data.js</code> with your real Robocon history.</li>
-            <li>Push the repository to GitHub.</li>
-            <li>Enable GitHub Pages and let the workflow deploy the site.</li>
-            <li>Add a <code>CNAME</code> file later if you want a custom domain.</li>
-          </ul>
         </div>
-        <aside class="publish-panel">
-          <div class="panel-label">Public Outcome</div>
-          <p class="panel-title">A portfolio-style story instead of a forgotten folder.</p>
-          <p id="footer-note"></p>
-        </aside>
+        <div class="experiment-grid" id="experiment-grid"></div>
+      </section>
+
+      <section class="support reveal" id="support">
+        <div class="section-heading">
+          <p class="section-kicker">Support / Demjigch Baiguullaga</p>
+          <h2>People and organizations that made the work possible</h2>
+        </div>
+        <div class="support-grid" id="support-grid"></div>
+      </section>
+
+      <section class="talarhal reveal" id="talarhal">
+        <div class="section-heading">
+          <p class="section-kicker">Talarhal</p>
+          <h2>The section for direct thanks</h2>
+          <p>
+            This is where the site becomes personal. Thank mentors, teammates, family,
+            sponsors, and anyone whose help mattered.
+          </p>
+        </div>
+        <div class="thanks-grid" id="thanks-grid"></div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>
-        Replace the sample content with your real timeline, robot names, results, and
-        photos before publishing the final version.
-      </p>
+      <p id="footer-note"></p>
     </footer>
+
+    <aside class="editor-drawer" id="editor-drawer" aria-hidden="true">
+      <div class="editor-shell">
+        <div class="editor-header">
+          <div>
+            <p class="panel-label">Editor</p>
+            <h2>Content and images</h2>
+            <p class="editor-disclaimer">
+              Browser editing works without a backend. Uploaded images are stored locally
+              in this browser unless you export the JSON or commit files into the repo.
+            </p>
+          </div>
+          <button class="editor-close" id="editor-close" type="button">Close</button>
+        </div>
+
+        <div class="editor-toolbar">
+          <button class="editor-action editor-action-primary" id="editor-save" type="button">
+            Save in browser
+          </button>
+          <button class="editor-action" id="editor-export" type="button">Export JSON</button>
+          <label class="editor-action editor-file-action" for="editor-import">
+            Import JSON
+          </label>
+          <input id="editor-import" type="file" accept=".json,application/json" hidden />
+          <button class="editor-action editor-action-danger" id="editor-reset" type="button">
+            Reset
+          </button>
+        </div>
+
+        <p class="editor-status" id="editor-status" aria-live="polite"></p>
+        <div class="editor-sections" id="editor-sections"></div>
+      </div>
+    </aside>
 
     <script type="module" src="./app.js"></script>
   </body>

@@ -1,156 +1,162 @@
 export const siteData = {
   owner: "Your Name",
   role: "Robocon builder, programmer, and teammate",
-  heroTag: "Personal Robocon Archive",
-  heroTitle: "Robocon shaped how I design, fail, rebuild, and compete.",
+  heroTag: "Home",
+  heroTitle: "A personal record of Robocon work, matches, failures, and growth.",
   heroSubtitle:
-    "This site is a narrative record of seasons, prototypes, breakdowns, and breakthroughs. Replace the sample milestones with your real years, robots, photos, and results to turn it into your public Robocon history.",
+    "This site is designed as a public archive of Robocon seasons. You can edit competitions, rewards, history, projects, experiments, support organizations, and a talarhal section directly from the browser.",
+  heroImage: "",
   stats: [
     {
       value: "2019",
       label: "First season",
-      note: "Change this to the year your story began.",
+      note: "Change this to your real starting year.",
     },
     {
-      value: "06",
-      label: "Prototype cycles",
-      note: "Use your actual count of major robots or rebuilds.",
+      value: "05",
+      label: "Competitions",
+      note: "Use your actual number of major seasons or finals.",
     },
     {
-      value: "03",
-      label: "Core roles",
-      note: "Driver, mechanic, programmer, lead, or any mix that fits.",
+      value: "08",
+      label: "Projects",
+      note: "Count robots, mechanisms, or serious prototypes.",
     },
   ],
-  phases: [
-    {
-      name: "Origin",
-      summary: "Curiosity, first workshop days, and the moment Robocon became serious.",
-    },
-    {
-      name: "Build",
-      summary: "Sensors, chassis, code, testing, and the pressure of iteration.",
-    },
-    {
-      name: "Compete",
-      summary: "Match-day decisions, recovery under failure, and lessons that stayed.",
-    },
-  ],
-  timeline: [
+  competitions: [
     {
       year: "2019",
-      title: "First contact with the workshop",
+      title: "National Robocon Qualifier",
+      location: "Ulaanbaatar, Mongolia",
+      theme: "Team entry season",
+      result: "First major competition experience",
       summary:
-        "I arrived with more curiosity than skill. The first weeks were mostly about understanding tools, observing senior teammates, and learning how quickly ideas fail when they meet real hardware.",
-      impact: "Foundation",
-      tags: ["entry", "learning"],
+        "Use this section for every competition year. Mention the host city, contest theme, your team result, and what made that season difficult.",
+      image: "",
     },
     {
-      year: "2020",
-      title: "Learning to trust iteration",
+      year: "2025",
+      title: "ABU Robocon 2025",
+      location: "Ulaanbaatar, Mongolia",
+      theme: "Robot Basketball",
+      result: "Replace with your team result",
       summary:
-        "This season changed my process. Instead of chasing a perfect first design, I started building small, testing early, and accepting rework as part of the system.",
-      impact: "Process shift",
-      tags: ["prototype", "testing"],
+        "This is a good place to describe the match format, what robot you built, and how your role changed under competition pressure.",
+      image: "",
+    },
+  ],
+  rewards: [
+    {
+      year: "2024",
+      title: "Best Design Award",
+      event: "National Robocon Qualifier",
+      detail: "Add awards, finalist results, certificates, or team distinctions here.",
+      image: "",
+    },
+    {
+      year: "2025",
+      title: "Special Recognition",
+      event: "University Robotics Program",
+      detail: "You can also use this area for sponsor awards, engineering awards, or media recognition.",
+      image: "",
+    },
+  ],
+  history: [
+    {
+      year: "2019",
+      title: "Started with observation and simple tasks",
+      impact: "Beginning",
+      summary:
+        "I entered Robocon by learning from older teammates, understanding the workshop, and seeing how mechanical ideas fail in the real world.",
+      tags: ["entry", "workshop"],
     },
     {
       year: "2021",
-      title: "From individual tasks to system thinking",
+      title: "Moved from parts to systems",
+      impact: "Growth",
       summary:
-        "The robot stopped feeling like separate parts and started feeling like one argument between mechanics, electronics, and code. That changed how I planned everything.",
-      impact: "Systems mindset",
-      tags: ["integration", "architecture"],
+        "Robots stopped feeling like separate mechanisms. I started thinking in terms of integration, constraints, and full-system behavior.",
+      tags: ["systems", "integration"],
     },
     {
-      year: "2022",
-      title: "Pressure exposed weak assumptions",
+      year: "2025",
+      title: "Pressure improved judgment",
+      impact: "Maturity",
       summary:
-        "Competition prep taught me that most failures appear late only because they were ignored early. Checklists, test loops, and clean communication mattered more than confidence.",
-      impact: "Discipline",
-      tags: ["competition", "debugging"],
-    },
-    {
-      year: "2023",
-      title: "Taking ownership of decisions",
-      summary:
-        "I became more responsible for tradeoffs: what to simplify, what to keep, and what to cut when time ran out. Robocon became as much about judgment as technical ability.",
-      impact: "Leadership",
-      tags: ["ownership", "tradeoffs"],
-    },
-    {
-      year: "Next",
-      title: "Turning the history into a public record",
-      summary:
-        "This site is the next step: documenting the journey clearly enough that other people can understand the work, not just the final result.",
-      impact: "Archive",
-      tags: ["story", "publishing"],
+        "Competition deadlines forced clearer tradeoffs. Simplicity, repairability, and discipline became more important than impressive complexity.",
+      tags: ["competition", "decision-making"],
     },
   ],
-  turningPoints: [
+  projects: [
     {
-      title: "Robots taught process, not just mechanics",
-      text:
-        "The biggest shift was understanding that a robot is rarely lost because one part is bad. It is usually lost because the team had no reliable process for decisions, testing, or fallback plans.",
-    },
-    {
-      title: "Late nights only help when the process is clean",
-      text:
-        "Effort matters, but unstructured effort burns time. The strongest seasons were the ones where notes, small tests, and honest reviews made the work lighter.",
-    },
-    {
-      title: "Competition reveals character quickly",
-      text:
-        "The match itself is short. What it reveals is how the team handles pressure, error, ambiguity, and imperfect information. That lesson carries beyond Robocon.",
-    },
-  ],
-  builds: [
-    {
-      name: "Line Tracking Platform",
+      name: "Drive Base Revision",
       season: "Season 01",
-      focus: "Control logic and calibration",
+      focus: "Mobility and stability",
       description:
-        "A foundational build where sensor noise, tuning, and repeatability mattered more than ambitious complexity.",
-      outcome: "Taught disciplined testing and the value of simple feedback loops.",
+        "A base platform project where the main goal was making movement more predictable under match conditions.",
+      outcome: "Taught repeatability, structure, and the cost of weak tolerances.",
+      image: "",
     },
     {
-      name: "Manipulator Prototype",
+      name: "Manipulator Mechanism",
       season: "Season 02",
-      focus: "Mechanical reliability",
+      focus: "Actuation and precision",
       description:
-        "A subsystem that looked fine in isolation but revealed weak assumptions once it was integrated with the rest of the robot.",
-      outcome: "Forced better interface thinking between structure, motors, and software.",
-    },
-    {
-      name: "Competition Robot Refresh",
-      season: "Season 03",
-      focus: "Iteration under deadlines",
-      description:
-        "A compressed rebuild that prioritized robustness, maintainability, and fast repair paths over flashy features.",
-      outcome: "Improved decision-making under schedule pressure.",
+        "A robot subsystem that looked acceptable alone but became much harder once it had to cooperate with sensors, chassis, and timing limits.",
+      outcome: "Improved interface thinking between mechanical and software layers.",
+      image: "",
     },
   ],
-  lessons: [
+  experiments: [
     {
-      title: "Test the risky assumption first",
-      detail:
-        "If one mechanism, sensor, or dependency can collapse the whole match plan, validate it before polishing anything else.",
+      name: "Sensor Calibration Trial",
+      area: "Experiments / Turshlaga",
+      summary:
+        "Use this section for test rigs, trials, failed ideas, alternate mechanisms, and software experiments that mattered even if they never reached the final robot.",
+      takeaway: "Good experiments reduce future risk even when they do not become final solutions.",
+      image: "",
     },
     {
-      title: "Integration breaks optimistic designs",
-      detail:
-        "Parts that succeed alone often fail together. Integration should happen early, repeatedly, and without ego.",
+      name: "Autonomous Path Test",
+      area: "Control and navigation",
+      summary:
+        "Document what was tested, what changed, and what you learned from the result.",
+      takeaway: "Short test loops usually save more time than one big unverified build.",
+      image: "",
+    },
+  ],
+  supporters: [
+    {
+      name: "University Robotics Lab",
+      type: "Support / Demjigch Baiguullaga",
+      contribution: "Workshop access, tools, and team coordination support.",
+      link: "",
+      image: "",
     },
     {
-      title: "Clear roles make fast teams",
-      detail:
-        "Under pressure, a team moves better when ownership is visible and decisions are recorded instead of implied.",
+      name: "Engineering Sponsor",
+      type: "Financial or material support",
+      contribution: "Motors, controllers, manufacturing help, logistics, or travel support.",
+      link: "",
+      image: "",
+    },
+  ],
+  acknowledgements: [
+    {
+      name: "Team Mentors",
+      role: "Talarhal",
+      message:
+        "Use this section to thank mentors, teammates, teachers, friends, or organizations that directly shaped your Robocon journey.",
+      image: "",
     },
     {
-      title: "Document while the memory is fresh",
-      detail:
-        "The story disappears if it stays only in your head. Logs, photos, and post-match notes are part of the engineering work.",
+      name: "Family and Friends",
+      role: "Support beyond the workshop",
+      message:
+        "This can be personal. It does not need to sound corporate. A strong thanks section makes the site feel honest.",
+      image: "",
     },
   ],
   footerNote:
-    "Built as a static GitHub Pages site so your Robocon history can live on a clean public URL.",
+    "Built as a static GitHub Pages site with a browser editor for content, rewards, and images.",
 };
