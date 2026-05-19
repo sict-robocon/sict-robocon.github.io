@@ -1,7 +1,176 @@
 import { siteData as defaultSiteData } from "./data/site-data.js";
 
-const STORAGE_KEY = "robocon-archive-site-data-v3";
+const STORAGE_KEY = "robocon-archive-site-data-v4";
+const LANGUAGE_STORAGE_KEY = "robocon-archive-language-v1";
 const IMAGE_MAX_DIMENSION = 1600;
+const SUPPORTED_LANGUAGES = ["en", "mn"];
+
+const uiText = {
+  en: {
+    titleSuffix: "Robocon Archive",
+    brand: "ROBOCON ARCHIVE",
+    navHome: "Home",
+    navCompetitions: "Competitions",
+    navReward: "Reward",
+    navHistory: "History",
+    navProjects: "Projects",
+    navExperiments: "Experiments",
+    navSupport: "Support",
+    navTalarhal: "Talarhal",
+    editSite: "Edit Site",
+    heroPrimaryAction: "See competitions",
+    heroSecondaryAction: "View projects",
+    heroVisualLabel: "Home Visual",
+    heroStatsLabel: "Quick Stats",
+    competitionsKicker: "Competitions",
+    competitionsTitle: "Seasons, venues, themes, and results",
+    competitionsDescription:
+      "This section should track the competitions that mattered, from local qualifiers to major Robocon stages.",
+    rewardKicker: "Reward",
+    rewardTitle: "Awards, placements, and recognition",
+    rewardDescription:
+      "Use this section for official awards, special mentions, finalist placements, engineering prizes, or certificates.",
+    historyKicker: "History",
+    historyTitle: "The years that changed the way you build",
+    historyDescription:
+      "Keep the story chronological. This is the section that shows how the work evolved over time.",
+    projectsKicker: "Projects",
+    projectsTitle: "Robots, mechanisms, and major technical work",
+    experimentsKicker: "Experiments / Turshlaga",
+    experimentsTitle: "Trials, failed ideas, and useful tests",
+    experimentsDescription:
+      "Experiments are part of the history too. They show how the final robot was shaped by evidence, not just guesses.",
+    supportKicker: "Support / Demjigch Baiguullaga",
+    supportTitle: "People and organizations that made the work possible",
+    talarhalKicker: "Talarhal",
+    talarhalTitle: "The section for direct thanks",
+    talarhalDescription:
+      "This is where the site becomes personal. Thank mentors, teammates, family, sponsors, and anyone whose help mattered.",
+    editorKicker: "Editor",
+    editorTitle: "Content and images",
+    editorDisclaimer:
+      "Browser editing works without a backend. Uploaded images are stored locally in this browser unless you export the JSON or commit files into the repo.",
+    editorClose: "Close",
+    editorSave: "Save in browser",
+    editorExport: "Export JSON",
+    editorImport: "Import JSON",
+    editorReset: "Reset",
+    themeLabel: "Theme",
+    resultLabel: "Result",
+    visitLink: "Visit",
+    emptyCompetitions: "Add competitions in the editor.",
+    emptyRewards: "Add rewards in the editor.",
+    emptyHistory: "Add history entries in the editor.",
+    emptyProjects: "Add projects in the editor.",
+    emptyExperiments: "Add experiments in the editor.",
+    emptySupporters: "Add support organizations in the editor.",
+    emptyThanks: "Add thanks entries in the editor.",
+    homeImagePlaceholder: "Upload a home image in the editor.",
+    competitionImagePlaceholder: "Upload a competition photo.",
+    rewardImagePlaceholder: "Upload a reward image or certificate.",
+    projectImagePlaceholder: "Upload a project image.",
+    experimentImagePlaceholder: "Upload an experiment image.",
+    supportImagePlaceholder: "Upload a logo or support image.",
+    thanksImagePlaceholder: "Upload an image for this thanks entry.",
+    saveSuccess: "Saved in this browser.",
+    storageFull:
+      "Browser storage is full. Export your JSON or reduce image size before saving again.",
+    addSuccess: "added.",
+    removeSuccess: "removed.",
+    exportSuccess: "Content exported as JSON.",
+    importSuccess: "JSON imported.",
+    importFailure: "Could not import that JSON file.",
+    imageProcessing: "Processing image...",
+    imageUpdated: "updated.",
+    imageUploadFailed: "Image upload failed.",
+    resetConfirm: "Reset all browser-edited content back to the default sample data?",
+    resetSuccess: "Content reset to defaults.",
+    editorLanguageEnglish: "English",
+    editorLanguageMongolian: "Монгол",
+  },
+  mn: {
+    titleSuffix: "Робокон архив",
+    brand: "ROBOCON ARCHIVE",
+    navHome: "Нүүр",
+    navCompetitions: "Тэмцээн",
+    navReward: "Шагнал",
+    navHistory: "Түүх",
+    navProjects: "Төслүүд",
+    navExperiments: "Туршилт",
+    navSupport: "Дэмжигч",
+    navTalarhal: "Талархал",
+    editSite: "Сайт засах",
+    heroPrimaryAction: "Тэмцээнүүдийг үзэх",
+    heroSecondaryAction: "Төслүүдийг үзэх",
+    heroVisualLabel: "Нүүр зураг",
+    heroStatsLabel: "Товч үзүүлэлт",
+    competitionsKicker: "Тэмцээн",
+    competitionsTitle: "Улирал, байршил, сэдэв, үр дүн",
+    competitionsDescription:
+      "Энэ хэсэгт оролцсон гол тэмцээнүүдийг, орон нутгийн шалгаруулалтаас эхлээд Робоконы томоохон шат хүртэл бүртгэнэ.",
+    rewardKicker: "Шагнал",
+    rewardTitle: "Шагнал, байр, үнэлгээ",
+    rewardDescription:
+      "Энэ хэсгийг албан ёсны шагнал, тусгай үнэлгээ, финалын байр, инженерийн шагнал эсвэл сертификатад ашиглана.",
+    historyKicker: "Түүх",
+    historyTitle: "Таны бүтээх арга барилыг өөрчилсөн он жилүүд",
+    historyDescription:
+      "Түүхээ цаг хугацааны дарааллаар хадгал. Энэ хэсэг ажил хэрхэн хувьссаныг харуулна.",
+    projectsKicker: "Төслүүд",
+    projectsTitle: "Робот, механизм, техникийн гол ажлууд",
+    experimentsKicker: "Туршилт / Turshlaga",
+    experimentsTitle: "Сорилт, бүтэлгүй санаа, хэрэгтэй туршилтууд",
+    experimentsDescription:
+      "Туршилт бол түүхийн нэг хэсэг. Эцсийн робот зөвхөн таамгаас биш, нотолгооноос хэрхэн үүссэнийг харуулна.",
+    supportKicker: "Дэмжигч / Demjigch Baiguullaga",
+    supportTitle: "Энэ ажлыг боломжтой болгосон хүмүүс ба байгууллагууд",
+    talarhalKicker: "Талархал",
+    talarhalTitle: "Шууд талархал илэрхийлэх хэсэг",
+    talarhalDescription:
+      "Энд сайт илүү хувийн өнгө аястай болно. Зөвлөх, багийнхан, гэр бүл, ивээн тэтгэгч, тусалсан бүх хүндээ талархал илэрхийл.",
+    editorKicker: "Редактор",
+    editorTitle: "Контент ба зургууд",
+    editorDisclaimer:
+      "Хөтөч дээрх засвар нь backend шаарддаггүй. Оруулсан зургуудыг JSON экспортлох эсвэл репод commit хийх хүртэл зөвхөн энэ хөтөч дээр хадгална.",
+    editorClose: "Хаах",
+    editorSave: "Хөтөч дээр хадгалах",
+    editorExport: "JSON экспортлох",
+    editorImport: "JSON импортлох",
+    editorReset: "Сэргээх",
+    themeLabel: "Сэдэв",
+    resultLabel: "Үр дүн",
+    visitLink: "Үзэх",
+    emptyCompetitions: "Редактороос тэмцээн нэмнэ үү.",
+    emptyRewards: "Редактороос шагнал нэмнэ үү.",
+    emptyHistory: "Редактороос түүхийн мөр нэмнэ үү.",
+    emptyProjects: "Редактороос төсөл нэмнэ үү.",
+    emptyExperiments: "Редактороос туршилт нэмнэ үү.",
+    emptySupporters: "Редактороос дэмжигч байгууллага нэмнэ үү.",
+    emptyThanks: "Редактороос талархлын мөр нэмнэ үү.",
+    homeImagePlaceholder: "Редактороос нүүр зургийг оруулна уу.",
+    competitionImagePlaceholder: "Тэмцээний зураг оруулна уу.",
+    rewardImagePlaceholder: "Шагнал эсвэл сертификатын зураг оруулна уу.",
+    projectImagePlaceholder: "Төслийн зураг оруулна уу.",
+    experimentImagePlaceholder: "Туршилтын зураг оруулна уу.",
+    supportImagePlaceholder: "Лого эсвэл дэмжлэгийн зураг оруулна уу.",
+    thanksImagePlaceholder: "Энэ талархлын мөрт зураг оруулна уу.",
+    saveSuccess: "Энэ хөтөч дээр хадгаллаа.",
+    storageFull:
+      "Хөтөчийн хадгалах зай дүүрсэн байна. JSON экспортлох эсвэл зургийн хэмжээг багасгаад дахин оролдоно уу.",
+    addSuccess: "нэмэгдлээ.",
+    removeSuccess: "устгагдлаа.",
+    exportSuccess: "Контентыг JSON файлаар экспортлов.",
+    importSuccess: "JSON амжилттай импортлов.",
+    importFailure: "Энэ JSON файлыг импортлож чадсангүй.",
+    imageProcessing: "Зураг боловсруулж байна...",
+    imageUpdated: "шинэчлэгдлээ.",
+    imageUploadFailed: "Зураг оруулахад алдаа гарлаа.",
+    resetConfirm: "Хөтөч дээрх бүх засварыг анхны жишээ өгөгдөл рүү сэргээх үү?",
+    resetSuccess: "Контентыг анхны өгөгдөл рүү сэргээв.",
+    editorLanguageEnglish: "English",
+    editorLanguageMongolian: "Монгол",
+  },
+};
 
 const editorSchema = [
   {
@@ -10,12 +179,12 @@ const editorSchema = [
     description: "Hero text, identity, and home image.",
     fields: [
       { key: "owner", label: "Owner" },
-      { key: "role", label: "Role" },
-      { key: "heroTag", label: "Home label" },
-      { key: "heroTitle", label: "Home title", type: "textarea" },
-      { key: "heroSubtitle", label: "Home subtitle", type: "textarea" },
+      { key: "role", label: "Role", type: "localized" },
+      { key: "heroTag", label: "Home label", type: "localized" },
+      { key: "heroTitle", label: "Home title", type: "localizedTextarea" },
+      { key: "heroSubtitle", label: "Home subtitle", type: "localizedTextarea" },
       { key: "heroImage", label: "Home image", type: "image" },
-      { key: "footerNote", label: "Footer note", type: "textarea" },
+      { key: "footerNote", label: "Footer note", type: "localizedTextarea" },
     ],
   },
   {
@@ -27,13 +196,13 @@ const editorSchema = [
     summaryKey: "label",
     fields: [
       { key: "value", label: "Value" },
-      { key: "label", label: "Label" },
-      { key: "note", label: "Note", type: "textarea" },
+      { key: "label", label: "Label", type: "localized" },
+      { key: "note", label: "Note", type: "localizedTextarea" },
     ],
     createItem: () => ({
       value: "00",
-      label: "New stat",
-      note: "Explain what this number means.",
+      label: makeLocalized("New stat", "Шинэ үзүүлэлт"),
+      note: makeLocalized("Explain what this number means.", "Энэ тоо ямар утгатайг тайлбарлана."),
     }),
   },
   {
@@ -45,20 +214,23 @@ const editorSchema = [
     summaryKey: "title",
     fields: [
       { key: "year", label: "Year" },
-      { key: "title", label: "Competition title" },
-      { key: "location", label: "Location" },
-      { key: "theme", label: "Theme" },
-      { key: "result", label: "Result" },
-      { key: "summary", label: "Summary", type: "textarea" },
+      { key: "title", label: "Competition title", type: "localized" },
+      { key: "location", label: "Location", type: "localized" },
+      { key: "theme", label: "Theme", type: "localized" },
+      { key: "result", label: "Result", type: "localized" },
+      { key: "summary", label: "Summary", type: "localizedTextarea" },
       { key: "image", label: "Competition image", type: "image" },
     ],
     createItem: () => ({
       year: "2026",
-      title: "New competition",
-      location: "City, Country",
-      theme: "Competition theme",
-      result: "Team result",
-      summary: "Describe what happened in this competition season.",
+      title: makeLocalized("New competition", "Шинэ тэмцээн"),
+      location: makeLocalized("City, Country", "Хот, Улс"),
+      theme: makeLocalized("Competition theme", "Тэмцээний сэдэв"),
+      result: makeLocalized("Team result", "Багийн үр дүн"),
+      summary: makeLocalized(
+        "Describe what happened in this competition season.",
+        "Энэ тэмцээний улиралд юу болсныг тайлбарлана."
+      ),
       image: "",
     }),
   },
@@ -71,16 +243,19 @@ const editorSchema = [
     summaryKey: "title",
     fields: [
       { key: "year", label: "Year" },
-      { key: "title", label: "Reward title" },
-      { key: "event", label: "Event" },
-      { key: "detail", label: "Detail", type: "textarea" },
+      { key: "title", label: "Reward title", type: "localized" },
+      { key: "event", label: "Event", type: "localized" },
+      { key: "detail", label: "Detail", type: "localizedTextarea" },
       { key: "image", label: "Reward image", type: "image" },
     ],
     createItem: () => ({
       year: "2026",
-      title: "New reward",
-      event: "Event or organization",
-      detail: "Describe the result or recognition.",
+      title: makeLocalized("New reward", "Шинэ шагнал"),
+      event: makeLocalized("Event or organization", "Арга хэмжээ эсвэл байгууллага"),
+      detail: makeLocalized(
+        "Describe the result or recognition.",
+        "Үр дүн эсвэл үнэлгээг тайлбарлана."
+      ),
       image: "",
     }),
   },
@@ -93,16 +268,19 @@ const editorSchema = [
     summaryKey: "title",
     fields: [
       { key: "year", label: "Year" },
-      { key: "title", label: "Title" },
-      { key: "impact", label: "Impact chip" },
-      { key: "summary", label: "Summary", type: "textarea" },
+      { key: "title", label: "Title", type: "localized" },
+      { key: "impact", label: "Impact chip", type: "localized" },
+      { key: "summary", label: "Summary", type: "localizedTextarea" },
       { key: "tags", label: "Tags", type: "tags" },
     ],
     createItem: () => ({
       year: "2026",
-      title: "New history entry",
-      impact: "Milestone",
-      summary: "Describe the turning point in your Robocon history.",
+      title: makeLocalized("New history entry", "Шинэ түүхийн мөр"),
+      impact: makeLocalized("Milestone", "Чухал үе"),
+      summary: makeLocalized(
+        "Describe the turning point in your Robocon history.",
+        "Робоконы түүхэн дэх эргэлтийн мөчийг тайлбарлана."
+      ),
       tags: ["history", "milestone"],
     }),
   },
@@ -114,19 +292,19 @@ const editorSchema = [
     itemLabel: "Project",
     summaryKey: "name",
     fields: [
-      { key: "name", label: "Project name" },
-      { key: "season", label: "Season" },
-      { key: "focus", label: "Focus" },
-      { key: "description", label: "Description", type: "textarea" },
-      { key: "outcome", label: "Outcome", type: "textarea" },
+      { key: "name", label: "Project name", type: "localized" },
+      { key: "season", label: "Season", type: "localized" },
+      { key: "focus", label: "Focus", type: "localized" },
+      { key: "description", label: "Description", type: "localizedTextarea" },
+      { key: "outcome", label: "Outcome", type: "localizedTextarea" },
       { key: "image", label: "Project image", type: "image" },
     ],
     createItem: () => ({
-      name: "New project",
-      season: "Season",
-      focus: "Main focus",
-      description: "Describe the project or robot.",
-      outcome: "Describe the outcome or lesson.",
+      name: makeLocalized("New project", "Шинэ төсөл"),
+      season: makeLocalized("Season", "Улирал"),
+      focus: makeLocalized("Main focus", "Үндсэн чиглэл"),
+      description: makeLocalized("Describe the project or robot.", "Төсөл эсвэл роботыг тайлбарлана."),
+      outcome: makeLocalized("Describe the outcome or lesson.", "Үр дүн эсвэл сургамжийг тайлбарлана."),
       image: "",
     }),
   },
@@ -138,17 +316,17 @@ const editorSchema = [
     itemLabel: "Experiment",
     summaryKey: "name",
     fields: [
-      { key: "name", label: "Experiment name" },
-      { key: "area", label: "Area" },
-      { key: "summary", label: "Summary", type: "textarea" },
-      { key: "takeaway", label: "Takeaway", type: "textarea" },
+      { key: "name", label: "Experiment name", type: "localized" },
+      { key: "area", label: "Area", type: "localized" },
+      { key: "summary", label: "Summary", type: "localizedTextarea" },
+      { key: "takeaway", label: "Takeaway", type: "localizedTextarea" },
       { key: "image", label: "Experiment image", type: "image" },
     ],
     createItem: () => ({
-      name: "New experiment",
-      area: "Test area",
-      summary: "Describe what was tested.",
-      takeaway: "Describe what was learned.",
+      name: makeLocalized("New experiment", "Шинэ туршилт"),
+      area: makeLocalized("Test area", "Туршилтын чиглэл"),
+      summary: makeLocalized("Describe what was tested.", "Юуг туршсаныг тайлбарлана."),
+      takeaway: makeLocalized("Describe what was learned.", "Юу сурсан тухай тайлбарлана."),
       image: "",
     }),
   },
@@ -160,16 +338,19 @@ const editorSchema = [
     itemLabel: "Support entry",
     summaryKey: "name",
     fields: [
-      { key: "name", label: "Name" },
-      { key: "type", label: "Support type" },
-      { key: "contribution", label: "Contribution", type: "textarea" },
+      { key: "name", label: "Name", type: "localized" },
+      { key: "type", label: "Support type", type: "localized" },
+      { key: "contribution", label: "Contribution", type: "localizedTextarea" },
       { key: "link", label: "Website link" },
       { key: "image", label: "Support image", type: "image" },
     ],
     createItem: () => ({
-      name: "New supporter",
-      type: "Support type",
-      contribution: "Describe how this organization supported the work.",
+      name: makeLocalized("New supporter", "Шинэ дэмжигч"),
+      type: makeLocalized("Support type", "Дэмжлэгийн төрөл"),
+      contribution: makeLocalized(
+        "Describe how this organization supported the work.",
+        "Энэ байгууллага ажлыг хэрхэн дэмжсэнийг тайлбарлана."
+      ),
       link: "",
       image: "",
     }),
@@ -182,28 +363,63 @@ const editorSchema = [
     itemLabel: "Thanks entry",
     summaryKey: "name",
     fields: [
-      { key: "name", label: "Name" },
-      { key: "role", label: "Role or relation" },
-      { key: "message", label: "Message", type: "textarea" },
+      { key: "name", label: "Name", type: "localized" },
+      { key: "role", label: "Role or relation", type: "localized" },
+      { key: "message", label: "Message", type: "localizedTextarea" },
       { key: "image", label: "Image", type: "image" },
     ],
     createItem: () => ({
-      name: "New thanks",
-      role: "Role or relation",
-      message: "Write the thanks message here.",
+      name: makeLocalized("New thanks", "Шинэ талархал"),
+      role: makeLocalized("Role or relation", "Холбоо эсвэл үүрэг"),
+      message: makeLocalized("Write the thanks message here.", "Талархлын мессежийг энд бичнэ үү."),
       image: "",
     }),
   },
 ];
 
+let currentLanguage = loadLanguage();
 let currentData = loadData();
 let statusTimeoutId = null;
 
 const dom = {
+  brandLabel: document.getElementById("brand-label"),
+  navHome: document.getElementById("nav-home"),
+  navCompetitions: document.getElementById("nav-competitions"),
+  navReward: document.getElementById("nav-reward"),
+  navHistory: document.getElementById("nav-history"),
+  navProjects: document.getElementById("nav-projects"),
+  navExperiments: document.getElementById("nav-experiments"),
+  navSupport: document.getElementById("nav-support"),
+  navTalarhal: document.getElementById("nav-talarhal"),
+  langEn: document.getElementById("lang-en"),
+  langMn: document.getElementById("lang-mn"),
   heroTag: document.getElementById("hero-tag"),
   heroPersona: document.getElementById("hero-persona"),
   heroTitle: document.getElementById("hero-title"),
   heroSubtitle: document.getElementById("hero-subtitle"),
+  heroPrimaryAction: document.getElementById("hero-primary-action"),
+  heroSecondaryAction: document.getElementById("hero-secondary-action"),
+  heroVisualLabel: document.getElementById("hero-visual-label"),
+  heroStatsLabel: document.getElementById("hero-stats-label"),
+  competitionsKicker: document.getElementById("competitions-kicker"),
+  competitionsTitle: document.getElementById("competitions-title"),
+  competitionsDescription: document.getElementById("competitions-description"),
+  rewardKicker: document.getElementById("reward-kicker"),
+  rewardTitle: document.getElementById("reward-title"),
+  rewardDescription: document.getElementById("reward-description"),
+  historyKicker: document.getElementById("history-kicker"),
+  historyTitle: document.getElementById("history-title"),
+  historyDescription: document.getElementById("history-description"),
+  projectsKicker: document.getElementById("projects-kicker"),
+  projectsTitle: document.getElementById("projects-title"),
+  experimentsKicker: document.getElementById("experiments-kicker"),
+  experimentsTitle: document.getElementById("experiments-title"),
+  experimentsDescription: document.getElementById("experiments-description"),
+  supportKicker: document.getElementById("support-kicker"),
+  supportTitle: document.getElementById("support-title"),
+  talarhalKicker: document.getElementById("talarhal-kicker"),
+  talarhalTitle: document.getElementById("talarhal-title"),
+  talarhalDescription: document.getElementById("talarhal-description"),
   footerNote: document.getElementById("footer-note"),
   heroMedia: document.getElementById("hero-media"),
   statsGrid: document.getElementById("stats-grid"),
@@ -218,14 +434,26 @@ const dom = {
   historySection: document.getElementById("history"),
   editorDrawer: document.getElementById("editor-drawer"),
   editorToggle: document.getElementById("editor-toggle"),
+  editorKicker: document.getElementById("editor-kicker"),
+  editorTitle: document.getElementById("editor-title"),
+  editorDisclaimer: document.getElementById("editor-disclaimer"),
   editorClose: document.getElementById("editor-close"),
   editorSections: document.getElementById("editor-sections"),
   editorSave: document.getElementById("editor-save"),
   editorExport: document.getElementById("editor-export"),
-  editorImport: document.getElementById("editor-import"),
+  editorImportText: document.getElementById("editor-import-text"),
   editorReset: document.getElementById("editor-reset"),
+  editorImport: document.getElementById("editor-import"),
   editorStatus: document.getElementById("editor-status"),
+  metaDescription: document.querySelector('meta[name="description"]'),
 };
+
+function makeLocalized(enValue, mnValue) {
+  return {
+    en: enValue,
+    mn: mnValue,
+  };
+}
 
 function cloneData(value) {
   if (value === undefined) {
@@ -239,7 +467,75 @@ function isPlainObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
 
+function isLocalizedObject(value) {
+  return isPlainObject(value) && ("en" in value || "mn" in value);
+}
+
+function loadLanguage() {
+  const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+  return SUPPORTED_LANGUAGES.includes(stored) ? stored : "en";
+}
+
+function persistLanguage() {
+  window.localStorage.setItem(LANGUAGE_STORAGE_KEY, currentLanguage);
+}
+
+function translate(key) {
+  return uiText[currentLanguage][key] || uiText.en[key] || "";
+}
+
+function getLocalizedValue(value) {
+  if (isLocalizedObject(value)) {
+    return value[currentLanguage] || value.en || value.mn || "";
+  }
+
+  if (value === undefined || value === null) {
+    return "";
+  }
+
+  return String(value);
+}
+
+function normalizeLocalizedValue(value) {
+  if (isLocalizedObject(value)) {
+    return {
+      en: value.en || "",
+      mn: value.mn || "",
+    };
+  }
+
+  if (typeof value === "string") {
+    return {
+      en: value,
+      mn: "",
+    };
+  }
+
+  return {
+    en: "",
+    mn: "",
+  };
+}
+
 function mergeWithDefaults(defaultValue, incomingValue) {
+  if (isLocalizedObject(defaultValue)) {
+    if (isLocalizedObject(incomingValue)) {
+      return {
+        en: incomingValue.en ?? defaultValue.en ?? "",
+        mn: incomingValue.mn ?? defaultValue.mn ?? "",
+      };
+    }
+
+    if (typeof incomingValue === "string") {
+      return {
+        en: incomingValue,
+        mn: defaultValue.mn ?? "",
+      };
+    }
+
+    return cloneData(defaultValue);
+  }
+
   if (Array.isArray(defaultValue)) {
     if (!Array.isArray(incomingValue)) {
       return cloneData(defaultValue);
@@ -251,7 +547,9 @@ function mergeWithDefaults(defaultValue, incomingValue) {
 
     const template = defaultValue[0];
     return incomingValue.map((item) =>
-      isPlainObject(template) ? mergeWithDefaults(template, item) : item
+      isPlainObject(template) || isLocalizedObject(template)
+        ? mergeWithDefaults(template, item)
+        : item
     );
   }
 
@@ -288,28 +586,26 @@ function loadData() {
   }
 }
 
-function persistData(silent = true) {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(currentData));
-    if (!silent) {
-      announceStatus("Saved in this browser.");
-    }
-    return true;
-  } catch (error) {
-    console.error("Failed to persist site data:", error);
-    announceStatus(
-      "Browser storage is full. Export your JSON or reduce image size before saving again."
-    );
-    return false;
-  }
-}
-
 function announceStatus(message) {
   dom.editorStatus.textContent = message;
   window.clearTimeout(statusTimeoutId);
   statusTimeoutId = window.setTimeout(() => {
     dom.editorStatus.textContent = "";
   }, 3200);
+}
+
+function persistData(silent = true) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(currentData));
+    if (!silent) {
+      announceStatus(translate("saveSuccess"));
+    }
+    return true;
+  } catch (error) {
+    console.error("Failed to persist site data:", error);
+    announceStatus(translate("storageFull"));
+    return false;
+  }
 }
 
 function element(tagName, className, textContent) {
@@ -329,6 +625,12 @@ function clearNode(node) {
   }
 }
 
+function setNodeText(node, value) {
+  if (node) {
+    node.textContent = value;
+  }
+}
+
 function createImageShell(source, altText, shellClass, mediaClass, placeholderText) {
   const shell = element("div", shellClass);
 
@@ -345,18 +647,73 @@ function createImageShell(source, altText, shellClass, mediaClass, placeholderTe
   return shell;
 }
 
-function setText(node, value) {
-  node.textContent = value || "";
+function applyLanguageChrome() {
+  document.documentElement.lang = currentLanguage;
+  document.title = `${currentData.owner || "Robocon"} | ${translate("titleSuffix")}`;
+
+  if (dom.metaDescription) {
+    dom.metaDescription.content = getLocalizedValue(currentData.heroSubtitle);
+  }
+
+  setNodeText(dom.brandLabel, translate("brand"));
+  setNodeText(dom.navHome, translate("navHome"));
+  setNodeText(dom.navCompetitions, translate("navCompetitions"));
+  setNodeText(dom.navReward, translate("navReward"));
+  setNodeText(dom.navHistory, translate("navHistory"));
+  setNodeText(dom.navProjects, translate("navProjects"));
+  setNodeText(dom.navExperiments, translate("navExperiments"));
+  setNodeText(dom.navSupport, translate("navSupport"));
+  setNodeText(dom.navTalarhal, translate("navTalarhal"));
+  setNodeText(dom.editorToggle, translate("editSite"));
+  setNodeText(dom.heroPrimaryAction, translate("heroPrimaryAction"));
+  setNodeText(dom.heroSecondaryAction, translate("heroSecondaryAction"));
+  setNodeText(dom.heroVisualLabel, translate("heroVisualLabel"));
+  setNodeText(dom.heroStatsLabel, translate("heroStatsLabel"));
+  setNodeText(dom.competitionsKicker, translate("competitionsKicker"));
+  setNodeText(dom.competitionsTitle, translate("competitionsTitle"));
+  setNodeText(dom.competitionsDescription, translate("competitionsDescription"));
+  setNodeText(dom.rewardKicker, translate("rewardKicker"));
+  setNodeText(dom.rewardTitle, translate("rewardTitle"));
+  setNodeText(dom.rewardDescription, translate("rewardDescription"));
+  setNodeText(dom.historyKicker, translate("historyKicker"));
+  setNodeText(dom.historyTitle, translate("historyTitle"));
+  setNodeText(dom.historyDescription, translate("historyDescription"));
+  setNodeText(dom.projectsKicker, translate("projectsKicker"));
+  setNodeText(dom.projectsTitle, translate("projectsTitle"));
+  setNodeText(dom.experimentsKicker, translate("experimentsKicker"));
+  setNodeText(dom.experimentsTitle, translate("experimentsTitle"));
+  setNodeText(dom.experimentsDescription, translate("experimentsDescription"));
+  setNodeText(dom.supportKicker, translate("supportKicker"));
+  setNodeText(dom.supportTitle, translate("supportTitle"));
+  setNodeText(dom.talarhalKicker, translate("talarhalKicker"));
+  setNodeText(dom.talarhalTitle, translate("talarhalTitle"));
+  setNodeText(dom.talarhalDescription, translate("talarhalDescription"));
+  setNodeText(dom.editorKicker, translate("editorKicker"));
+  setNodeText(dom.editorTitle, translate("editorTitle"));
+  setNodeText(dom.editorDisclaimer, translate("editorDisclaimer"));
+  setNodeText(dom.editorClose, translate("editorClose"));
+  setNodeText(dom.editorSave, translate("editorSave"));
+  setNodeText(dom.editorExport, translate("editorExport"));
+  setNodeText(dom.editorImportText, translate("editorImport"));
+  setNodeText(dom.editorReset, translate("editorReset"));
+
+  dom.langEn.classList.toggle("is-active", currentLanguage === "en");
+  dom.langMn.classList.toggle("is-active", currentLanguage === "mn");
+  dom.langEn.setAttribute("aria-pressed", String(currentLanguage === "en"));
+  dom.langMn.setAttribute("aria-pressed", String(currentLanguage === "mn"));
 }
 
 function renderPage() {
-  document.title = `${currentData.owner || "Robocon"} | Robocon Archive`;
+  applyLanguageChrome();
 
-  setText(dom.heroTag, currentData.heroTag);
-  setText(dom.heroPersona, [currentData.owner, currentData.role].filter(Boolean).join(" · "));
-  setText(dom.heroTitle, currentData.heroTitle);
-  setText(dom.heroSubtitle, currentData.heroSubtitle);
-  setText(dom.footerNote, currentData.footerNote);
+  setNodeText(dom.heroTag, getLocalizedValue(currentData.heroTag));
+  setNodeText(
+    dom.heroPersona,
+    [currentData.owner, getLocalizedValue(currentData.role)].filter(Boolean).join(" · ")
+  );
+  setNodeText(dom.heroTitle, getLocalizedValue(currentData.heroTitle));
+  setNodeText(dom.heroSubtitle, getLocalizedValue(currentData.heroSubtitle));
+  setNodeText(dom.footerNote, getLocalizedValue(currentData.footerNote));
 
   clearNode(dom.heroMedia);
   dom.heroMedia.appendChild(
@@ -365,7 +722,7 @@ function renderPage() {
       `${currentData.owner || "Robocon"} home image`,
       "hero-media-shell",
       "hero-media-image",
-      "Upload a home image in the editor."
+      translate("homeImagePlaceholder")
     )
   );
 
@@ -386,24 +743,27 @@ function renderStats() {
   currentData.stats.forEach((stat) => {
     const card = element("article", "stat-card");
     card.appendChild(element("span", "stat-value", stat.value));
-    card.appendChild(element("span", "stat-label", stat.label));
-    card.appendChild(element("p", "stat-note", stat.note));
+    card.appendChild(element("span", "stat-label", getLocalizedValue(stat.label)));
+    card.appendChild(element("p", "stat-note", getLocalizedValue(stat.note)));
     dom.statsGrid.appendChild(card);
   });
 }
 
-function renderEmptyState(container, message) {
+function renderEmptyState(container, messageKey) {
   const card = element("article", "empty-card");
-  card.appendChild(element("p", "", message));
+  card.appendChild(element("p", "", translate(messageKey)));
   container.appendChild(card);
 }
 
 function appendMetaChips(container, chips) {
   const meta = element("div", "card-meta");
 
-  chips.filter(Boolean).forEach((chip, index) => {
-    meta.appendChild(element("span", index === 0 ? "timeline-year" : "impact-chip", chip));
-  });
+  chips
+    .map((chip) => getLocalizedValue(chip))
+    .filter(Boolean)
+    .forEach((chip, index) => {
+      meta.appendChild(element("span", index === 0 ? "timeline-year" : "impact-chip", chip));
+    });
 
   container.appendChild(meta);
 }
@@ -412,7 +772,7 @@ function renderCompetitions() {
   clearNode(dom.competitionGrid);
 
   if (!currentData.competitions.length) {
-    renderEmptyState(dom.competitionGrid, "Add competitions in the editor.");
+    renderEmptyState(dom.competitionGrid, "emptyCompetitions");
     return;
   }
 
@@ -421,19 +781,31 @@ function renderCompetitions() {
     card.appendChild(
       createImageShell(
         competition.image,
-        competition.title,
+        getLocalizedValue(competition.title),
         "section-media-shell",
         "section-media-image",
-        "Upload a competition photo."
+        translate("competitionImagePlaceholder")
       )
     );
 
     const body = element("div", "section-card-body");
     appendMetaChips(body, [competition.year, competition.location]);
-    body.appendChild(element("h3", "", competition.title));
-    body.appendChild(element("p", "", competition.summary));
-    body.appendChild(element("p", "section-note", `Theme: ${competition.theme}`));
-    body.appendChild(element("p", "section-note", `Result: ${competition.result}`));
+    body.appendChild(element("h3", "", getLocalizedValue(competition.title)));
+    body.appendChild(element("p", "", getLocalizedValue(competition.summary)));
+    body.appendChild(
+      element(
+        "p",
+        "section-note",
+        `${translate("themeLabel")}: ${getLocalizedValue(competition.theme)}`
+      )
+    );
+    body.appendChild(
+      element(
+        "p",
+        "section-note",
+        `${translate("resultLabel")}: ${getLocalizedValue(competition.result)}`
+      )
+    );
     card.appendChild(body);
     dom.competitionGrid.appendChild(card);
   });
@@ -443,7 +815,7 @@ function renderRewards() {
   clearNode(dom.rewardGrid);
 
   if (!currentData.rewards.length) {
-    renderEmptyState(dom.rewardGrid, "Add rewards in the editor.");
+    renderEmptyState(dom.rewardGrid, "emptyRewards");
     return;
   }
 
@@ -452,17 +824,17 @@ function renderRewards() {
     card.appendChild(
       createImageShell(
         reward.image,
-        reward.title,
+        getLocalizedValue(reward.title),
         "section-media-shell",
         "section-media-image",
-        "Upload a reward image or certificate."
+        translate("rewardImagePlaceholder")
       )
     );
 
     const body = element("div", "section-card-body");
     appendMetaChips(body, [reward.year, reward.event]);
-    body.appendChild(element("h3", "", reward.title));
-    body.appendChild(element("p", "", reward.detail));
+    body.appendChild(element("h3", "", getLocalizedValue(reward.title)));
+    body.appendChild(element("p", "", getLocalizedValue(reward.detail)));
     card.appendChild(body);
     dom.rewardGrid.appendChild(card);
   });
@@ -472,7 +844,7 @@ function renderHistory() {
   clearNode(dom.historyList);
 
   if (!currentData.history.length) {
-    renderEmptyState(dom.historyList, "Add history entries in the editor.");
+    renderEmptyState(dom.historyList, "emptyHistory");
     return;
   }
 
@@ -480,10 +852,10 @@ function renderHistory() {
     const card = element("article", "timeline-card");
     const meta = element("div", "timeline-meta");
     meta.appendChild(element("span", "timeline-year", item.year));
-    meta.appendChild(element("span", "impact-chip", item.impact));
+    meta.appendChild(element("span", "impact-chip", getLocalizedValue(item.impact)));
     card.appendChild(meta);
-    card.appendChild(element("h3", "", item.title));
-    card.appendChild(element("p", "timeline-copy", item.summary));
+    card.appendChild(element("h3", "", getLocalizedValue(item.title)));
+    card.appendChild(element("p", "timeline-copy", getLocalizedValue(item.summary)));
 
     const tagRow = element("div", "tag-row");
     (Array.isArray(item.tags) ? item.tags : []).forEach((tag) => {
@@ -498,7 +870,7 @@ function renderProjects() {
   clearNode(dom.projectGrid);
 
   if (!currentData.projects.length) {
-    renderEmptyState(dom.projectGrid, "Add projects in the editor.");
+    renderEmptyState(dom.projectGrid, "emptyProjects");
     return;
   }
 
@@ -507,18 +879,18 @@ function renderProjects() {
     card.appendChild(
       createImageShell(
         project.image,
-        project.name,
+        getLocalizedValue(project.name),
         "section-media-shell",
         "section-media-image",
-        "Upload a project image."
+        translate("projectImagePlaceholder")
       )
     );
 
     const body = element("div", "section-card-body");
     appendMetaChips(body, [project.season, project.focus]);
-    body.appendChild(element("h3", "", project.name));
-    body.appendChild(element("p", "", project.description));
-    body.appendChild(element("p", "section-note", project.outcome));
+    body.appendChild(element("h3", "", getLocalizedValue(project.name)));
+    body.appendChild(element("p", "", getLocalizedValue(project.description)));
+    body.appendChild(element("p", "section-note", getLocalizedValue(project.outcome)));
     card.appendChild(body);
     dom.projectGrid.appendChild(card);
   });
@@ -528,7 +900,7 @@ function renderExperiments() {
   clearNode(dom.experimentGrid);
 
   if (!currentData.experiments.length) {
-    renderEmptyState(dom.experimentGrid, "Add experiments in the editor.");
+    renderEmptyState(dom.experimentGrid, "emptyExperiments");
     return;
   }
 
@@ -537,18 +909,18 @@ function renderExperiments() {
     card.appendChild(
       createImageShell(
         experiment.image,
-        experiment.name,
+        getLocalizedValue(experiment.name),
         "section-media-shell",
         "section-media-image",
-        "Upload an experiment image."
+        translate("experimentImagePlaceholder")
       )
     );
 
     const body = element("div", "section-card-body");
     appendMetaChips(body, [experiment.area]);
-    body.appendChild(element("h3", "", experiment.name));
-    body.appendChild(element("p", "", experiment.summary));
-    body.appendChild(element("p", "section-note", experiment.takeaway));
+    body.appendChild(element("h3", "", getLocalizedValue(experiment.name)));
+    body.appendChild(element("p", "", getLocalizedValue(experiment.summary)));
+    body.appendChild(element("p", "section-note", getLocalizedValue(experiment.takeaway)));
     card.appendChild(body);
     dom.experimentGrid.appendChild(card);
   });
@@ -558,7 +930,7 @@ function renderSupporters() {
   clearNode(dom.supportGrid);
 
   if (!currentData.supporters.length) {
-    renderEmptyState(dom.supportGrid, "Add support organizations in the editor.");
+    renderEmptyState(dom.supportGrid, "emptySupporters");
     return;
   }
 
@@ -567,20 +939,20 @@ function renderSupporters() {
     card.appendChild(
       createImageShell(
         supporter.image,
-        supporter.name,
+        getLocalizedValue(supporter.name),
         "section-media-shell",
         "section-media-image",
-        "Upload a logo or support image."
+        translate("supportImagePlaceholder")
       )
     );
 
     const body = element("div", "section-card-body");
     appendMetaChips(body, [supporter.type]);
-    body.appendChild(element("h3", "", supporter.name));
-    body.appendChild(element("p", "", supporter.contribution));
+    body.appendChild(element("h3", "", getLocalizedValue(supporter.name)));
+    body.appendChild(element("p", "", getLocalizedValue(supporter.contribution)));
 
     if (supporter.link) {
-      const link = element("a", "section-link", "Visit");
+      const link = element("a", "section-link", translate("visitLink"));
       link.href = supporter.link;
       link.target = "_blank";
       link.rel = "noreferrer";
@@ -596,7 +968,7 @@ function renderThanks() {
   clearNode(dom.thanksGrid);
 
   if (!currentData.acknowledgements.length) {
-    renderEmptyState(dom.thanksGrid, "Add thanks entries in the editor.");
+    renderEmptyState(dom.thanksGrid, "emptyThanks");
     return;
   }
 
@@ -605,17 +977,17 @@ function renderThanks() {
     card.appendChild(
       createImageShell(
         entry.image,
-        entry.name,
+        getLocalizedValue(entry.name),
         "section-media-shell",
         "section-media-image",
-        "Upload an image for this thanks entry."
+        translate("thanksImagePlaceholder")
       )
     );
 
     const body = element("div", "section-card-body");
     appendMetaChips(body, [entry.role]);
-    body.appendChild(element("h3", "", entry.name));
-    body.appendChild(element("p", "", entry.message));
+    body.appendChild(element("h3", "", getLocalizedValue(entry.name)));
+    body.appendChild(element("p", "", getLocalizedValue(entry.message)));
     card.appendChild(body);
     dom.thanksGrid.appendChild(card);
   });
@@ -658,7 +1030,7 @@ function createEditorSection(sectionSchema) {
     persistData();
     renderPage();
     renderEditor();
-    announceStatus(`${sectionSchema.itemLabel} added.`);
+    announceStatus(`${sectionSchema.itemLabel} ${translate("addSuccess")}`);
   });
   section.appendChild(addButton);
 
@@ -668,7 +1040,7 @@ function createEditorSection(sectionSchema) {
 function createEditorListItem(sectionSchema, item, index) {
   const card = element("article", "editor-item");
   const header = element("div", "editor-item-header");
-  const title = item[sectionSchema.summaryKey] || `${sectionSchema.itemLabel} ${index + 1}`;
+  const title = getLocalizedValue(item[sectionSchema.summaryKey]) || `${sectionSchema.itemLabel} ${index + 1}`;
 
   header.appendChild(
     element("h4", "editor-item-title", `${sectionSchema.itemLabel} ${index + 1}: ${title}`)
@@ -676,15 +1048,13 @@ function createEditorListItem(sectionSchema, item, index) {
 
   const actions = element("div", "editor-item-actions");
   const upButton = makeItemActionButton("Up", () => moveListItem(sectionSchema.key, index, -1));
-  const downButton = makeItemActionButton("Down", () =>
-    moveListItem(sectionSchema.key, index, 1)
-  );
+  const downButton = makeItemActionButton("Down", () => moveListItem(sectionSchema.key, index, 1));
   const removeButton = makeItemActionButton("Remove", () => {
     currentData[sectionSchema.key].splice(index, 1);
     persistData();
     renderPage();
     renderEditor();
-    announceStatus(`${sectionSchema.itemLabel} removed.`);
+    announceStatus(`${sectionSchema.itemLabel} ${translate("removeSuccess")}`);
   });
 
   if (index === 0) {
@@ -733,6 +1103,16 @@ function moveListItem(key, index, offset) {
 function createEditorField(target, field) {
   const wrapper = element("label", "editor-field");
   wrapper.appendChild(element("span", "editor-field-label", field.label));
+
+  if (field.type === "localized") {
+    wrapper.appendChild(createLocalizedEditorControl(target, field, false));
+    return wrapper;
+  }
+
+  if (field.type === "localizedTextarea") {
+    wrapper.appendChild(createLocalizedEditorControl(target, field, true));
+    return wrapper;
+  }
 
   if (field.type === "textarea") {
     const textarea = document.createElement("textarea");
@@ -783,6 +1163,42 @@ function createEditorField(target, field) {
   return wrapper;
 }
 
+function createLocalizedEditorControl(target, field, multiline) {
+  const localizedValue = normalizeLocalizedValue(target[field.key]);
+  target[field.key] = localizedValue;
+
+  const grid = element("div", "editor-localized-grid");
+  ["en", "mn"].forEach((languageCode) => {
+    const item = element("div", "editor-localized-item");
+    const subLabel = element(
+      "span",
+      "editor-localized-label",
+      languageCode === "en" ? translate("editorLanguageEnglish") : translate("editorLanguageMongolian")
+    );
+    item.appendChild(subLabel);
+
+    const control = multiline ? document.createElement("textarea") : document.createElement("input");
+    control.className = multiline ? "editor-textarea" : "editor-input";
+
+    if (multiline) {
+      control.rows = 4;
+    } else {
+      control.type = "text";
+    }
+
+    control.value = localizedValue[languageCode] || "";
+    control.addEventListener("input", () => {
+      target[field.key][languageCode] = control.value;
+      persistData();
+      renderPage();
+    });
+    item.appendChild(control);
+    grid.appendChild(item);
+  });
+
+  return grid;
+}
+
 function createImageEditorField(target, field, wrapper) {
   const preview = element("div", "editor-image-preview");
   const input = document.createElement("input");
@@ -828,16 +1244,16 @@ function createImageEditorField(target, field, wrapper) {
     }
 
     try {
-      announceStatus("Processing image...");
+      announceStatus(translate("imageProcessing"));
       target[field.key] = await compressImageFile(file);
       input.value = target[field.key];
       persistData();
       syncPreview();
       renderPage();
-      announceStatus(`${field.label} updated.`);
+      announceStatus(`${field.label} ${translate("imageUpdated")}`);
     } catch (error) {
       console.error("Failed to process image:", error);
-      announceStatus("Image upload failed.");
+      announceStatus(translate("imageUploadFailed"));
     } finally {
       fileInput.value = "";
     }
@@ -868,10 +1284,7 @@ function compressImageFile(file) {
     const image = new Image();
 
     image.onload = () => {
-      const scale = Math.min(
-        1,
-        IMAGE_MAX_DIMENSION / Math.max(image.width, image.height || IMAGE_MAX_DIMENSION)
-      );
+      const scale = Math.min(1, IMAGE_MAX_DIMENSION / Math.max(image.width, image.height || IMAGE_MAX_DIMENSION));
       const canvas = document.createElement("canvas");
       canvas.width = Math.round(image.width * scale);
       canvas.height = Math.round(image.height * scale);
@@ -906,8 +1319,7 @@ function updateTimelineProgress() {
 
   const rect = dom.historySection.getBoundingClientRect();
   const viewportHeight = window.innerHeight;
-  const progress =
-    1 - (rect.bottom - viewportHeight * 0.5) / (rect.height + viewportHeight * 0.5);
+  const progress = 1 - (rect.bottom - viewportHeight * 0.5) / (rect.height + viewportHeight * 0.5);
   const clamped = Math.max(0.16, Math.min(progress, 1));
   dom.timelineFill.style.height = `${clamped * 100}%`;
 }
@@ -955,7 +1367,7 @@ function exportData() {
   anchor.download = "robocon-archive-content.json";
   anchor.click();
   URL.revokeObjectURL(url);
-  announceStatus("Content exported as JSON.");
+  announceStatus(translate("exportSuccess"));
 }
 
 async function importData(file) {
@@ -964,13 +1376,11 @@ async function importData(file) {
   persistData();
   renderPage();
   renderEditor();
-  announceStatus("JSON imported.");
+  announceStatus(translate("importSuccess"));
 }
 
 function resetData() {
-  const confirmed = window.confirm(
-    "Reset all browser-edited content back to the default sample data?"
-  );
+  const confirmed = window.confirm(translate("resetConfirm"));
 
   if (!confirmed) {
     return;
@@ -980,10 +1390,24 @@ function resetData() {
   persistData();
   renderPage();
   renderEditor();
-  announceStatus("Content reset to defaults.");
+  announceStatus(translate("resetSuccess"));
+}
+
+function setLanguage(languageCode) {
+  if (!SUPPORTED_LANGUAGES.includes(languageCode)) {
+    return;
+  }
+
+  currentLanguage = languageCode;
+  persistLanguage();
+  renderPage();
+  renderEditor();
 }
 
 function setupEditorEvents() {
+  dom.langEn.addEventListener("click", () => setLanguage("en"));
+  dom.langMn.addEventListener("click", () => setLanguage("mn"));
+
   dom.editorToggle.addEventListener("click", () => {
     if (dom.editorDrawer.classList.contains("is-open")) {
       closeEditor();
@@ -1005,7 +1429,7 @@ function setupEditorEvents() {
       await importData(file);
     } catch (error) {
       console.error("Failed to import JSON:", error);
-      announceStatus("Could not import that JSON file.");
+      announceStatus(translate("importFailure"));
     } finally {
       dom.editorImport.value = "";
     }

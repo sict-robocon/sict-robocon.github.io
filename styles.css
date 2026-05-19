@@ -106,6 +106,34 @@ main,
   gap: 14px;
 }
 
+.language-switcher {
+  display: inline-flex;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.lang-button {
+  min-height: 34px;
+  min-width: 54px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.lang-button.is-active {
+  background: rgba(126, 224, 255, 0.12);
+  color: var(--text);
+}
+
 .brand,
 .eyebrow,
 .section-kicker,
@@ -908,6 +936,23 @@ section {
   gap: 12px;
 }
 
+.editor-localized-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.editor-localized-item {
+  display: grid;
+  gap: 6px;
+}
+
+.editor-localized-label {
+  color: var(--muted);
+  font-size: 0.86rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .editor-field {
   display: grid;
   gap: 8px;
@@ -1016,6 +1061,10 @@ section {
   .topbar-actions {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .language-switcher {
+    justify-content: center;
   }
 
   .topnav {

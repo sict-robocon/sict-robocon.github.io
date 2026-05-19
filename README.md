@@ -6,6 +6,7 @@ Static website scaffold for publishing a personal Robocon history on GitHub Page
 
 - A responsive single-page site in plain HTML, CSS, and JavaScript
 - Sample Robocon story content in one editable file: `data/site-data.js`
+- English and Mongolian language switching
 - A browser-side editor for text, awards, and image uploads
 - Public sections for `Home`, `Competitions`, `Reward`, `History`, `Projects`, `Experiments`, `Support`, and `Talarhal`
 - AI-DLC-style project notes in `docs/aidlc/`
@@ -41,6 +42,7 @@ Replace the sample values with your real:
 The page now includes an `Edit Site` button.
 
 - Text edits are stored in your browser automatically
+- Localized content fields support both English and Mongolian
 - Uploaded images are compressed and stored locally in the browser
 - `Export JSON` downloads your edited content
 - `Import JSON` restores a previous export
