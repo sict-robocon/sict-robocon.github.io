@@ -1,6 +1,6 @@
 import { siteData as defaultSiteData } from "./data/site-data.js";
 
-const STORAGE_KEY = "robocon-archive-site-data-v5";
+const STORAGE_KEY = "robocon-archive-site-data-v6";
 const LANGUAGE_STORAGE_KEY = "robocon-archive-language-v1";
 const IMAGE_MAX_DIMENSION = 1600;
 const SUPPORTED_LANGUAGES = ["en", "mn"];
@@ -715,16 +715,7 @@ function renderPage() {
   setNodeText(dom.heroSubtitle, getLocalizedValue(currentData.heroSubtitle));
   setNodeText(dom.footerNote, getLocalizedValue(currentData.footerNote));
 
-  clearNode(dom.heroMedia);
-  dom.heroMedia.appendChild(
-    createImageShell(
-      currentData.heroImage,
-      `${currentData.owner || "Robocon"} home image`,
-      "hero-media-shell",
-      "hero-media-image",
-      translate("homeImagePlaceholder")
-    )
-  );
+  renderHeroMedia();
 
   renderStats();
   renderCompetitions();
@@ -735,6 +726,41 @@ function renderPage() {
   renderSupporters();
   renderThanks();
   updateTimelineProgress();
+}
+
+function renderHeroMedia() {
+  clearNode(dom.heroMedia);
+
+  const collage = element("div", "hero-collage");
+  const mainImage = createImageShell(
+    currentData.heroImage,
+    `${currentData.owner || "Robocon"} home image`,
+    "hero-media-shell hero-media-primary",
+    "hero-media-image",
+    translate("homeImagePlaceholder")
+  );
+  const secondaryImage = createImageShell(
+    "./docs/aidlc/images/2019/Robocon_2019_Quarter_Finals.jpg",
+    "Robocon 2019 quarter finals",
+    "hero-media-shell hero-media-secondary",
+    "hero-media-image",
+    translate("competitionImagePlaceholder")
+  );
+
+  const logoStack = element("div", "hero-logo-stack");
+  const logoOne = new Image();
+  logoOne.src = "./docs/aidlc/images/brand/logo-sict-solo.png";
+  logoOne.alt = "SICT logo";
+  logoOne.className = "hero-logo-stack-mark is-tall";
+
+  const logoTwo = new Image();
+  logoTwo.src = "./docs/aidlc/images/brand/logo-robocon-head.png";
+  logoTwo.alt = "ABU Robocon logo";
+  logoTwo.className = "hero-logo-stack-mark";
+
+  logoStack.append(logoOne, logoTwo);
+  collage.append(mainImage, secondaryImage, logoStack);
+  dom.heroMedia.appendChild(collage);
 }
 
 function renderStats() {

@@ -18,39 +18,39 @@ export const siteData = {
     mn:
       "ABU Robocon тэмцээн 2002 оноос эхлэн 2026 он хүртэл тасралтгүй зохион байгуулагдаж байна. Энэ сайт нь Робоконы улирлуудын олон нийтэд нээлттэй архив хэлбэрээр хийгдсэн. Та тэмцээн, шагнал, түүх, төслүүд, туршилтууд, дэмжигч байгууллагууд болон талархлын хэсгийг хөтөч дээрээс шууд засах боломжтой.",
   },
-  heroImage: "",
+  heroImage: "./docs/aidlc/images/2025/abu_his25.jpg",
   stats: [
     {
-      value: "2019",
+      value: "2002",
       label: {
-        en: "First season",
-        mn: "Эхний улирал",
+        en: "ABU launch",
+        mn: "ABU эхлэл",
       },
       note: {
-        en: "Change this to your real starting year.",
-        mn: "Үүнийг өөрийн жинхэнэ эхэлсэн оноор солино.",
+        en: "The international ABU Robocon contest started in 2002.",
+        mn: "Олон улсын ABU Robocon тэмцээн 2002 онд эхэлсэн.",
       },
     },
     {
-      value: "05",
+      value: "2026",
       label: {
-        en: "Competitions",
-        mn: "Тэмцээнүүд",
+        en: "Current era",
+        mn: "Одоогийн үе",
       },
       note: {
-        en: "Use your actual number of major seasons or finals.",
-        mn: "Өөрийн жинхэнэ оролцсон томоохон улирал эсвэл финалын тоог оруулна.",
+        en: "The contest continues through 2026.",
+        mn: "Тэмцээн 2026 он хүртэл үргэлжилж байна.",
       },
     },
     {
-      value: "08",
+      value: "25",
       label: {
-        en: "Projects",
-        mn: "Төслүүд",
+        en: "Editions",
+        mn: "Удаагийн тоо",
       },
       note: {
-        en: "Count robots, mechanisms, or serious prototypes.",
-        mn: "Робот, механизм эсвэл чухал прототипүүдийн тоог оруулна.",
+        en: "Use this area to connect your own Robocon years to the larger ABU timeline.",
+        mn: "Энэ хэсгийг өөрийн Робоконы жилүүдийг ABU-ийн том цаг хугацаатай холбож харуулахад ашиглана.",
       },
     },
   ],
@@ -79,7 +79,7 @@ export const siteData = {
         mn:
           "Энэ хэсэгт тэмцээн болсон жил бүрийг оруулна. Зохион байгуулагч хот, тэмцээний сэдэв, багийн үр дүн, тухайн улирлыг юугаараа хэцүү болгосныг бичнэ.",
       },
-      image: "",
+      image: "./docs/aidlc/images/2019/Robocon_2019_Quarter_Finals.jpg",
     },
     {
       year: "2025",
@@ -105,7 +105,7 @@ export const siteData = {
         mn:
           "Энд тоглолтын формат, ямар робот бүтээсэн, тэмцээний дарамтан дор таны үүрэг хэрхэн өөрчлөгдсөнийг тайлбарлахад тохиромжтой.",
       },
-      image: "",
+      image: "./docs/aidlc/images/2025/abu2025_tournament2.png",
     },
   ],
   rewards: [
@@ -123,7 +123,7 @@ export const siteData = {
         en: "Add awards, finalist results, certificates, or team distinctions here.",
         mn: "Энд шагнал, финалын үр дүн, сертификат эсвэл багийн онцлох амжилтыг нэмнэ.",
       },
-      image: "",
+      image: "./docs/aidlc/images/brand/logo-robocon-head.png",
     },
     {
       year: "2025",
@@ -139,7 +139,7 @@ export const siteData = {
         en: "You can also use this area for sponsor awards, engineering awards, or media recognition.",
         mn: "Энэ хэсгийг ивээн тэтгэгчийн шагнал, инженерийн шагнал, эсвэл хэвлэл мэдээллийн үнэлгээнд ашиглаж болно.",
       },
-      image: "",
+      image: "./docs/aidlc/images/2025/abu_his25.jpg",
     },
   ],
   history: [
@@ -306,8 +306,8 @@ export const siteData = {
         en: "Workshop access, tools, and team coordination support.",
         mn: "Цехийн нөөц, багаж хэрэгсэл, багийн зохион байгуулалтын дэмжлэг.",
       },
-      link: "",
-      image: "",
+      link: "https://sict.edu.mn",
+      image: "./docs/aidlc/images/brand/logo-sict-solo.png",
     },
     {
       name: {
@@ -322,8 +322,8 @@ export const siteData = {
         en: "Motors, controllers, manufacturing help, logistics, or travel support.",
         mn: "Мотор, удирдлага, үйлдвэрлэлийн тусламж, ложистик эсвэл аяллын дэмжлэг.",
       },
-      link: "",
-      image: "",
+      link: "https://must.edu.mn/mn/",
+      image: "./docs/aidlc/images/brand/logo-must.png",
     },
   ],
   acknowledgements: [
