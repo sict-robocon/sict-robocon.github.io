@@ -14,9 +14,9 @@ export const siteData = {
   },
   heroSubtitle: {
     en:
-      "This site is designed as a public archive of Robocon seasons. You can edit competitions, rewards, history, projects, experiments, support organizations, and a talarhal section directly from the browser.",
+      "ABU Robocon has been held since 2002 and continues through 2026. This site is designed as a public archive of Robocon seasons. You can edit competitions, rewards, history, projects, experiments, support organizations, and a talarhal section directly from the browser.",
     mn:
-      "Энэ сайт нь Робоконы улирлуудын олон нийтэд нээлттэй архив хэлбэрээр хийгдсэн. Та тэмцээн, шагнал, түүх, төслүүд, туршилтууд, дэмжигч байгууллагууд болон талархлын хэсгийг хөтөч дээрээс шууд засах боломжтой.",
+      "ABU Robocon тэмцээн 2002 оноос эхлэн 2026 он хүртэл тасралтгүй зохион байгуулагдаж байна. Энэ сайт нь Робоконы улирлуудын олон нийтэд нээлттэй архив хэлбэрээр хийгдсэн. Та тэмцээн, шагнал, түүх, төслүүд, туршилтууд, дэмжигч байгууллагууд болон талархлын хэсгийг хөтөч дээрээс шууд засах боломжтой.",
   },
   heroImage: "",
   stats: [
