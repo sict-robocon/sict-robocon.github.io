@@ -9,8 +9,8 @@ export const siteData = {
     mn: "Нүүр",
   },
   heroTitle: {
-    en: "A personal record of Robocon work, matches, failures, and growth.",
-    mn: "Робокон дахь ажил, тэмцээн, алдаа, өсөлтийн хувийн түүх.",
+    en: "The path to ABU Robocon success.",
+    mn: "ABU robocon амжилтад хүрэх зам.",
   },
   heroSubtitle: {
     en:
