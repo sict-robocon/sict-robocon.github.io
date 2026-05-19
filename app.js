@@ -1,6 +1,6 @@
 import { siteData as defaultSiteData } from "./data/site-data.js";
 
-const STORAGE_KEY = "robocon-archive-site-data-v4";
+const STORAGE_KEY = "robocon-archive-site-data-v5";
 const LANGUAGE_STORAGE_KEY = "robocon-archive-language-v1";
 const IMAGE_MAX_DIMENSION = 1600;
 const SUPPORTED_LANGUAGES = ["en", "mn"];
