@@ -11,22 +11,22 @@ const uiText = {
     brand: "ROBOCON ARCHIVE",
     navHome: "Home",
     navCompetitions: "Competitions",
-    navReward: "Reward",
+    navReward: "Awards",
     navHistory: "History",
     navProjects: "Projects",
     navExperiments: "Experiments",
     navSupport: "Support",
-    navTalarhal: "Talarhal",
+    navTalarhal: "Thanks",
     editSite: "Edit Site",
-    heroPrimaryAction: "See competitions",
-    heroSecondaryAction: "View projects",
+    heroPrimaryAction: "Read the history",
+    heroSecondaryAction: "See competitions",
     heroVisualLabel: "Home Visual",
     heroStatsLabel: "Quick Stats",
     competitionsKicker: "Competitions",
     competitionsTitle: "Seasons, venues, themes, and results",
     competitionsDescription:
-      "This section should track the competitions that mattered, from local qualifiers to major Robocon stages.",
-    rewardKicker: "Reward",
+      "Track the Robocon seasons that mattered, from qualifiers to the biggest stages, with themes, venues, and results.",
+    rewardKicker: "Awards",
     rewardTitle: "Awards, placements, and recognition",
     rewardDescription:
       "Use this section for official awards, special mentions, finalist placements, engineering prizes, or certificates.",
@@ -35,15 +35,17 @@ const uiText = {
     historyDescription:
       "Keep the story chronological. This is the section that shows how the work evolved over time.",
     projectsKicker: "Projects",
-    projectsTitle: "Robots, mechanisms, and major technical work",
-    experimentsKicker: "Experiments / Turshlaga",
-    experimentsTitle: "Trials, failed ideas, and useful tests",
+    projectsTitle: "Robots, mechanisms, and technical development",
+    projectsDescription:
+      "This section gathers the robots you built and the experiments that improved them.",
+    experimentsKicker: "Experiments",
+    experimentsTitle: "Trials and prototypes behind the final builds",
     experimentsDescription:
-      "Experiments are part of the history too. They show how the final robot was shaped by evidence, not just guesses.",
-    supportKicker: "Support / Demjigch Baiguullaga",
+      "Keep the tests here instead of giving them their own top-level menu. This makes the story easier to follow.",
+    supportKicker: "Support",
     supportTitle: "People and organizations that made the work possible",
-    talarhalKicker: "Talarhal",
-    talarhalTitle: "The section for direct thanks",
+    talarhalKicker: "Thanks",
+    talarhalTitle: "Personal thanks",
     talarhalDescription:
       "This is where the site becomes personal. Thank mentors, teammates, family, sponsors, and anyone whose help mattered.",
     editorKicker: "Editor",
@@ -100,14 +102,14 @@ const uiText = {
     navSupport: "Дэмжигч",
     navTalarhal: "Талархал",
     editSite: "Сайт засах",
-    heroPrimaryAction: "Тэмцээнүүдийг үзэх",
-    heroSecondaryAction: "Төслүүдийг үзэх",
+    heroPrimaryAction: "Түүхийг үзэх",
+    heroSecondaryAction: "Тэмцээнүүдийг үзэх",
     heroVisualLabel: "Нүүр зураг",
     heroStatsLabel: "Товч үзүүлэлт",
     competitionsKicker: "Тэмцээн",
     competitionsTitle: "Улирал, байршил, сэдэв, үр дүн",
     competitionsDescription:
-      "Энэ хэсэгт оролцсон гол тэмцээнүүдийг, орон нутгийн шалгаруулалтаас эхлээд Робоконы томоохон шат хүртэл бүртгэнэ.",
+      "Энэ хэсэгт оролцсон Робоконы гол улирлуудыг, шалгаруулалтаас эхлээд томоохон шат хүртэл сэдэв, байршил, үр дүнтэй нь бүртгэнэ.",
     rewardKicker: "Шагнал",
     rewardTitle: "Шагнал, байр, үнэлгээ",
     rewardDescription:
@@ -117,15 +119,17 @@ const uiText = {
     historyDescription:
       "Түүхээ цаг хугацааны дарааллаар хадгал. Энэ хэсэг ажил хэрхэн хувьссаныг харуулна.",
     projectsKicker: "Төслүүд",
-    projectsTitle: "Робот, механизм, техникийн гол ажлууд",
-    experimentsKicker: "Туршилт / Turshlaga",
-    experimentsTitle: "Сорилт, бүтэлгүй санаа, хэрэгтэй туршилтууд",
+    projectsTitle: "Робот, механизм, техникийн хөгжил",
+    projectsDescription:
+      "Энэ хэсэгт бүтээсэн робот, механизм болон тэднийг сайжруулсан туршилтуудыг хамтад нь харуулна.",
+    experimentsKicker: "Туршилт",
+    experimentsTitle: "Эцсийн бүтээлийн ард байсан сорилт ба прототипууд",
     experimentsDescription:
-      "Туршилт бол түүхийн нэг хэсэг. Эцсийн робот зөвхөн таамгаас биш, нотолгооноос хэрхэн үүссэнийг харуулна.",
-    supportKicker: "Дэмжигч / Demjigch Baiguullaga",
+      "Туршилтыг тусдаа дээд цэс болгохын оронд төслүүдийн дор нэгтгэвэл түүхийг дагахад илүү ойлгомжтой болно.",
+    supportKicker: "Дэмжигч байгууллага",
     supportTitle: "Энэ ажлыг боломжтой болгосон хүмүүс ба байгууллагууд",
     talarhalKicker: "Талархал",
-    talarhalTitle: "Шууд талархал илэрхийлэх хэсэг",
+    talarhalTitle: "Хувийн талархлын хэсэг",
     talarhalDescription:
       "Энд сайт илүү хувийн өнгө аястай болно. Зөвлөх, багийнхан, гэр бүл, ивээн тэтгэгч, тусалсан бүх хүндээ талархал илэрхийл.",
     editorKicker: "Редактор",
@@ -237,20 +241,20 @@ const editorSchema = [
   {
     kind: "list",
     key: "rewards",
-    title: "Reward",
+    title: "Awards",
     description: "Awards, certificates, placements, and recognition.",
-    itemLabel: "Reward",
+    itemLabel: "Award",
     summaryKey: "title",
     fields: [
       { key: "year", label: "Year" },
-      { key: "title", label: "Reward title", type: "localized" },
+      { key: "title", label: "Award title", type: "localized" },
       { key: "event", label: "Event", type: "localized" },
       { key: "detail", label: "Detail", type: "localizedTextarea" },
-      { key: "image", label: "Reward image", type: "image" },
+      { key: "image", label: "Award image", type: "image" },
     ],
     createItem: () => ({
       year: "2026",
-      title: makeLocalized("New reward", "Шинэ шагнал"),
+      title: makeLocalized("New award", "Шинэ шагнал"),
       event: makeLocalized("Event or organization", "Арга хэмжээ эсвэл байгууллага"),
       detail: makeLocalized(
         "Describe the result or recognition.",
@@ -412,6 +416,7 @@ const dom = {
   historyDescription: document.getElementById("history-description"),
   projectsKicker: document.getElementById("projects-kicker"),
   projectsTitle: document.getElementById("projects-title"),
+  projectsDescription: document.getElementById("projects-description"),
   experimentsKicker: document.getElementById("experiments-kicker"),
   experimentsTitle: document.getElementById("experiments-title"),
   experimentsDescription: document.getElementById("experiments-description"),
@@ -680,6 +685,7 @@ function applyLanguageChrome() {
   setNodeText(dom.historyDescription, translate("historyDescription"));
   setNodeText(dom.projectsKicker, translate("projectsKicker"));
   setNodeText(dom.projectsTitle, translate("projectsTitle"));
+  setNodeText(dom.projectsDescription, translate("projectsDescription"));
   setNodeText(dom.experimentsKicker, translate("experimentsKicker"));
   setNodeText(dom.experimentsTitle, translate("experimentsTitle"));
   setNodeText(dom.experimentsDescription, translate("experimentsDescription"));
@@ -718,11 +724,11 @@ function renderPage() {
   renderHeroMedia();
 
   renderStats();
-  renderCompetitions();
-  renderRewards();
   renderHistory();
+  renderCompetitions();
   renderProjects();
   renderExperiments();
+  renderRewards();
   renderSupporters();
   renderThanks();
   updateTimelineProgress();

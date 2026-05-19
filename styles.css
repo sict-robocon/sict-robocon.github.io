@@ -544,6 +544,12 @@ section {
   font-size: clamp(2.1rem, 5vw, 3.2rem);
 }
 
+.section-subgroup {
+  margin-top: 28px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
 .phase-grid,
 .card-grid,
 .build-grid,

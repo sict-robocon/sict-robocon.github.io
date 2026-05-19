@@ -21,14 +21,12 @@
       <a class="brand" href="#top" id="brand-label">ROBOCON ARCHIVE</a>
       <div class="topbar-actions">
         <nav class="topnav" aria-label="Primary">
-          <a href="#top" id="nav-home">Home</a>
-          <a href="#competitions" id="nav-competitions">Competitions</a>
-          <a href="#reward" id="nav-reward">Reward</a>
           <a href="#history" id="nav-history">History</a>
+          <a href="#competitions" id="nav-competitions">Competitions</a>
           <a href="#projects" id="nav-projects">Projects</a>
-          <a href="#experiments" id="nav-experiments">Experiments</a>
+          <a href="#reward" id="nav-reward">Awards</a>
           <a href="#support" id="nav-support">Support</a>
-          <a href="#talarhal" id="nav-talarhal">Talarhal</a>
+          <a href="#talarhal" id="nav-talarhal">Thanks</a>
         </nav>
         <div class="language-switcher" aria-label="Language selector">
           <button class="lang-button" id="lang-en" type="button">EN</button>
@@ -57,11 +55,11 @@
           <h1 id="hero-title"></h1>
           <p class="hero-subtitle" id="hero-subtitle"></p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#competitions" id="hero-primary-action">
-              See competitions
+            <a class="button button-primary" href="#history" id="hero-primary-action">
+              Read the history
             </a>
-            <a class="button button-secondary" href="#projects" id="hero-secondary-action">
-              View projects
+            <a class="button button-secondary" href="#competitions" id="hero-secondary-action">
+              See competitions
             </a>
           </div>
           <div class="hero-brandrail" aria-label="Institutional and contest marks">
@@ -92,30 +90,6 @@
         </aside>
       </section>
 
-      <section class="competitions reveal" id="competitions">
-        <div class="section-heading">
-          <p class="section-kicker" id="competitions-kicker">Competitions</p>
-          <h2 id="competitions-title">Seasons, venues, themes, and results</h2>
-          <p id="competitions-description">
-            This section should track the competitions that mattered, from local qualifiers
-            to major Robocon stages.
-          </p>
-        </div>
-        <div class="competition-grid" id="competition-grid"></div>
-      </section>
-
-      <section class="reward reveal" id="reward">
-        <div class="section-heading">
-          <p class="section-kicker" id="reward-kicker">Reward</p>
-          <h2 id="reward-title">Awards, placements, and recognition</h2>
-          <p id="reward-description">
-            Use this section for official awards, special mentions, finalist placements,
-            engineering prizes, or certificates.
-          </p>
-        </div>
-        <div class="reward-grid" id="reward-grid"></div>
-      </section>
-
       <section class="history reveal" id="history">
         <div class="section-heading">
           <p class="section-kicker" id="history-kicker">History</p>
@@ -133,29 +107,56 @@
         </div>
       </section>
 
+      <section class="competitions reveal" id="competitions">
+        <div class="section-heading">
+          <p class="section-kicker" id="competitions-kicker">Competitions</p>
+          <h2 id="competitions-title">Seasons, venues, themes, and results</h2>
+          <p id="competitions-description">
+            This section should track the competitions that mattered, from local qualifiers
+            to major Robocon stages.
+          </p>
+        </div>
+        <div class="competition-grid" id="competition-grid"></div>
+      </section>
+
       <section class="projects reveal" id="projects">
         <div class="section-heading">
           <p class="section-kicker" id="projects-kicker">Projects</p>
-          <h2 id="projects-title">Robots, mechanisms, and major technical work</h2>
-        </div>
-        <div class="project-grid" id="project-grid"></div>
-      </section>
-
-      <section class="experiments reveal" id="experiments">
-        <div class="section-heading">
-          <p class="section-kicker" id="experiments-kicker">Experiments / Turshlaga</p>
-          <h2 id="experiments-title">Trials, failed ideas, and useful tests</h2>
-          <p id="experiments-description">
-            Experiments are part of the history too. They show how the final robot was
-            shaped by evidence, not just guesses.
+          <h2 id="projects-title">Robots, mechanisms, and technical work</h2>
+          <p id="projects-description">
+            This section gathers the robots you built and the experiments that improved
+            them.
           </p>
         </div>
-        <div class="experiment-grid" id="experiment-grid"></div>
+        <div class="project-grid" id="project-grid"></div>
+        <div class="section-subgroup">
+          <div class="section-heading compact">
+            <p class="section-kicker" id="experiments-kicker">Experiments</p>
+            <h2 id="experiments-title">Trials and prototypes behind the final builds</h2>
+            <p id="experiments-description">
+              Keep the tests here instead of giving them their own top-level menu. This
+              makes the story easier to follow.
+            </p>
+          </div>
+          <div class="experiment-grid" id="experiment-grid"></div>
+        </div>
+      </section>
+
+      <section class="reward reveal" id="reward">
+        <div class="section-heading">
+          <p class="section-kicker" id="reward-kicker">Awards</p>
+          <h2 id="reward-title">Awards, placements, and recognition</h2>
+          <p id="reward-description">
+            Use this section for official awards, special mentions, finalist placements,
+            engineering prizes, or certificates.
+          </p>
+        </div>
+        <div class="reward-grid" id="reward-grid"></div>
       </section>
 
       <section class="support reveal" id="support">
         <div class="section-heading">
-          <p class="section-kicker" id="support-kicker">Support / Demjigch Baiguullaga</p>
+          <p class="section-kicker" id="support-kicker">Support</p>
           <h2 id="support-title">People and organizations that made the work possible</h2>
         </div>
         <div class="support-grid" id="support-grid"></div>
@@ -163,8 +164,8 @@
 
       <section class="talarhal reveal" id="talarhal">
         <div class="section-heading">
-          <p class="section-kicker" id="talarhal-kicker">Talarhal</p>
-          <h2 id="talarhal-title">The section for direct thanks</h2>
+          <p class="section-kicker" id="talarhal-kicker">Thanks</p>
+          <h2 id="talarhal-title">Personal thanks</h2>
           <p id="talarhal-description">
             This is where the site becomes personal. Thank mentors, teammates, family,
             sponsors, and anyone whose help mattered.
